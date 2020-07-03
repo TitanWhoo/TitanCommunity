@@ -37,7 +37,7 @@ public class ArticleService {
         if (content.length() > 200) {
             article.setShortContent(content.substring(0, 200) + "...");
         } else {
-            article.setShortContent(content);
+            article.setShortContent(content + "...");
         }
     }
 
