@@ -1,5 +1,7 @@
 # TitanCommunity
 
+  Titan社区（Titan Community），基于SSM （ Spring + SpringMVC + Mybatis）开发的知识问答社区
+  
 ## **项目介绍**
 
   Titan社区（Titan Community）是我在上个星期学习与研究完 **SSM （ Spring + SpringMVC + Mybatis）**框架后，用了不到一周的时间开发的一个练手的项目。其主要定位为知识问答社区（类似于知乎、思否等平台）。
