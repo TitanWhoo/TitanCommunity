@@ -4,8 +4,9 @@ import java.util.regex.Pattern;
 
 public class StringUtil {
     public static String deleteHtml(String htmlStr) {
-        return htmlStr.replaceAll("<\\/?.+?\\/?>", "");
+        return htmlStr.replaceAll("<\\/?.+?\\/?>", "").replaceAll("&nbsp;", "");
     }
+
     public static String escapeScript(String value) {
         if (value != null) {
             Pattern scriptPattern = Pattern.compile("<[\r\n| | ]*script[\r\n| | ]*>(.*?)</[\r\n| | ]*script[\r\n| | ]*>", Pattern.CASE_INSENSITIVE);
