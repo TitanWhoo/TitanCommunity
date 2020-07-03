@@ -1,0 +1,23 @@
+html, body {
+    font-size: 16px;
+    background-color: #f6f6f6;
+}
+
+.user-menu {
+    background-color: #007bff;
+}
+
+.user-menu a {
+    color: white !important;
+}
+
+.user-menu a:hover {
+    background-color: #07498f;
+}
+
+@media screen and (max-width:540px) {
+    .seatch-button {
+        display: block;
+        width: 100%;
+    }
+}

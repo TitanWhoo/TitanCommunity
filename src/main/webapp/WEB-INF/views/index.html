@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titan社区 - Titan Community</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/main.js"></script>
+</head>
+
+<body>
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">Titan社区</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">主页 <span class="sr-only">(current)</span></a>
+                </li>
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link" href="/random">发现</a>-->
+                <!--                </li>-->
+                <li class="nav-item">
+                    <a class="nav-link" href="/write">发布文章</a>
+                </li>
+            </ul>
+
+            <form action="/search" method="GET" class="form-inline ml-auto mr-sm-3">
+                <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search"
+                       aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0 seatch-button" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav" th:if="${user}">
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
+                        欢迎您,[[${user.username}]]
+                    </a>
+                    <div class="dropdown-menu user-menu">
+                        <a class="dropdown-item" id="send-article" href="/write">发布文章</a>
+                        <a class="dropdown-item" id="logout">注销</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav" th:if="${user}==null">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#register-modal">注册</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#login-modal">登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- 帖子模块 -->
+<div class="home">
+    <div class="container">
+        <div class="card mt-3">
+            <div class="card-body" th:text="${tip}">为你推荐</div>
+        </div>
+        <div class="card">
+            <!--文章内容子模块-->
+            <div class="card-body px-0 py-0" th:each="article : ${articles.list}">
+                <div class="card home-article">
+                    <a th:href="@{'/articles/?id='+${article.id}}">
+                        <div class="card-body">
+                            <div class="title mb-3">
+                                [[${article.title}]]
+                            </div>
+                            <div class="row no-gutters">
+                                <div class="col-md-2 d-none d-sm-block mr-3">
+                                    <img class="w-100" src="/static/images/article.jpg"/>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        [[${article.shortContent}]]
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="article-foot px-3 py-3">
+                        <div class="footer">
+                            发表时间: [[${article.time}]] 作者: [[${article.author.username}]]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-3 py-3">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:if="${articles.hasPreviousPage}">
+                        <a class="page-link" th:href="@{'/index?page='+${prePage}}"
+                           tabindex="-1">上一页</a>
+                    </li>
+                    <li class="page-item disabled" th:if="${articles.isFirstPage}">
+                        <a class="page-link" href="#" tabindex="-1">上一页</a>
+                    </li>
+                    <li class="page-item" th:if="${articles.hasNextPage}">
+                        <a class="page-link" th:href="@{'/index?page='+${nextPage}}">下一页</a>
+                    </li>
+                    <li class="page-item disabled" th:if="${articles.isLastPage}">
+                        <a class="page-link" href="#">下一页</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Login Modal -->
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" th:if="${user} == null">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">用户登录</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card">
+                <div id="login-tip" style="display: none;" class="card-body text-white">
+                    TIP
+                </div>
+            </div>
+            <div class="modal-body">
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="account">账户</label>
+                        <input type="text" name="account" id="account" class="form-control"
+                               placeholder="请输入用户名\邮箱\手机号">
+                    </div>
+                    <div class="form-group">
+                        <label for="pass">密码</label>
+                        <input type="password" name="pass" id="pass" class="form-control" placeholder="请输入密码">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button id="btn-login" type="button" class="btn btn-primary">登录</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Register Modal -->
+<div class="modal fade" id="register-modal" tabindex="-1" role="dialog" th:if="${user} == null">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">用户注册</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card">
+                <div id="form-tip" style="display: none;" class="card-body text-white">
+                    TIP
+                </div>
+            </div>
+            <div class="modal-body">
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" name="username" id="username" class="form-control" placeholder="请输入用户名">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" name="password" id="password" class="form-control"
+                               placeholder="请输入密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="password-confirm">密码确认</label>
+                        <input type="password" name="password-confirm" id="password-confirm" class="form-control"
+                               placeholder="请再次输入密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">手机号</label>
+                        <input type="text" name="phone" id="phone" class="form-control" placeholder="请输入手机号">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="请输入邮箱">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button id="btn-register" type="button" class="btn btn-primary">注册</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+.home{
+    background-color: white;
+}
+.home-article .title{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.home-article .footer{
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.article-foot{
+    border-top: 1px solid rgba(228, 223, 223, 0.855);
+}
+.home-article a {
+    color: black !important;
+    
+}
+.home-article a:hover {
+    color: black !important;
+    text-decoration: none !important;
+}

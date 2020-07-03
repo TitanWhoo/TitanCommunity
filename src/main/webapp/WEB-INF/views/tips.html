@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出错啦 - Titan社区 - Titan Community</title>
+    <link rel="stylesheet" href="/static/css/error.css">
+</head>
+
+<body>
+<div class="center-me" style="text-align: center; padding: 1rem;">
+    <div class="error-code">ERROR - <span th:text="${errorCode}">404</span></div>
+    <div class="error-tip">非常抱歉，您要访问的界面出错了，错误原因如下</div>
+    <div class="error" th:text="${errorReason}">系统找不到您要访问的页面</div>
+    <div class="back">将在 5秒 后返回主页。如果页面没有返回，请 <a style="color: white;" href="/">点击这里</a></div>
+    <div class="titan">Titan社区 - Titan Community</div>
+</div>
+<script>setTimeout(function () {
+    location.href = "";
+}, 5000)</script>
+</body>
+
+</html>

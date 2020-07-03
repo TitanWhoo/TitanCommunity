@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titan社区 - Titan Community</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/write.css">
+    <link rel="stylesheet" href="/static/css/wangEditor.min.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/editor.js"></script>
+    <script src="/static/js/write.js?v=1.0.0"></script>
+    <script src="/static/js/main.js"></script>
+</head>
+
+<body>
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">Titan社区</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">主页 <span class="sr-only">(current)</span></a>
+                </li>
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link" href="/random">发现</a>-->
+                <!--                </li>-->
+                <li class="nav-item active">
+                    <a class="nav-link" href="/write">发布文章</a>
+                </li>
+            </ul>
+
+            <form action="/search" method="GET" class="form-inline ml-auto mr-sm-3">
+                <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search"
+                       aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0 seatch-button" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav" th:if="${user}">
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">
+                        欢迎您,[[${user.username}]]
+                    </a>
+                    <div class="dropdown-menu user-menu">
+                        <a class="dropdown-item" id="send-article" href="/write">发布文章</a>
+                        <a class="dropdown-item" id="logout">注销</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav" th:if="${user}==null">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#register-modal">注册</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#login-modal">登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="mt-3 row">
+        <div class="col-md-10 mb-3">
+            <input type="text" class="form-control" id="edit-title" placeholder="请输入标题"/>
+        </div>
+        <div class="col-md-2 mb-3">
+            <button type="button" class="btn btn-primary btn-block" id="edit-post">发表文章</button>
+        </div>
+    </div>
+    <div class="d-none d-sm-block">
+        <div id="edit-menu" class="toolbar bg-white mb-3">
+
+        </div>
+    </div>
+    <div id="edit-text" class="text bg-white">
+
+    </div>
+</div>
+</body>
+
+</html>

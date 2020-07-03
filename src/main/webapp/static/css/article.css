@@ -1,0 +1,39 @@
+.article-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.article-info {
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.comment-count {
+    font-size: 1.33rem;
+    font-weight: bold;
+}
+
+.comment-info {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+}
+
+.comment-detail {
+    word-wrap: break-word;
+}
+
+.comment-release .comment-title {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+#comment-editor {
+    height: 18rem;
+}
+
+.comment-body {
+    border-bottom: 2px rgba(16, 43, 134, 0.644) solid;
+}
