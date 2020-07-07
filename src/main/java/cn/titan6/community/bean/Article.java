@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Article implements Serializable {
-    private int id;
+    private Integer id;
     @Length(min = 3, max = 40, message = "文章标题长度应于3个字到40个字之间")
     private String title;
     private User author;
@@ -25,11 +25,11 @@ public class Article implements Serializable {
         this.author = author;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -8,19 +8,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Comment implements Serializable {
-    private int id;
+    private Integer id;
     @Length(min = 5, message = "回复长度需要大于5个字符!")
     private String content;
     @NotNull(message = "ArticleID 不正确!")
-    private int aid;
+    private Integer aid;
     private User user;
     private LocalDateTime time;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -32,11 +32,11 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
-    public int getAid() {
+    public Integer getAid() {
         return aid;
     }
 
-    public void setAid(int aid) {
+    public void setAid(Integer aid) {
         this.aid = aid;
     }
 
